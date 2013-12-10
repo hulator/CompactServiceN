@@ -23,7 +23,7 @@ net.createServer(function (socket) {
     // Remove the client from the list when it leaves
     socket.on('end', function () {
         connections.splice(connections.indexOf(socket), 1);
-        //console.log(socket.name + " Disconnected.\n");
+        log.info(socket.UnitID + " Disconnected.\n");
     });
 
     
@@ -33,24 +33,18 @@ net.createServer(function (socket) {
         var greeting = data.toString('ascii', 0,4);
 
         if(greeting === "MCGP"){
-            //console.log("Cellocator msg!");
             var posMsg = require('./PositionMessage');
             posMsg.encode(data);
 
-            //console.log("UnitID = " + posMsg.unitID);
-            //console.log("Numerator = " + posMsg.numerator);
-            //console.log("Lat = " + posMsg.latitude);
-            //console.log("Lon = " + posMsg.longitude);
-            //console.log("Date = " + posMsg.gpsDate);
-            //console.log("sat = " + posMsg.numberOfSatellites);
-            //console.log("Speed = " + posMsg.speed);
-            //console.log("Direction = " + posMsg.direction);
+            sock.UnitID = posMsg.unitID;
+            log.info("Unit " + unitID + " connected");
+
+            var conn = require('./DbConnection');
+            conn.storeMessage(posMsg);
 
             ackCallback(posMsg.unitID, posMsg.numerator, sock);
-        }else {
-            //console.log("something different connected");
-            //console.log(greeting);
-            }
+            setTimeout(triggerWrites, 60000);
+        }
     };
 
     function sendAck(unitID, numerator, sock){
@@ -61,3 +55,11 @@ net.createServer(function (socket) {
     }
 
 }).listen(231);
+
+function triggerWrites(){
+    var conn = require('./DbConnection');
+    conn.storeInDB(function(){
+        log.info('Messsages written.');
+        setTimeout(triggerWrites, 60000);
+    });
+}
