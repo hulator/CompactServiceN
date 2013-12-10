@@ -1,0 +1,10 @@
+{
+  "name": "PerfServ",
+  "version": "0.0.0",
+  "description": "PerfServ",
+  "main": "app.js",
+  "author": {
+    "name": "laabs",
+    "email": ""
+  }
+}
