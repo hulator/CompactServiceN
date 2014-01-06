@@ -6,5 +6,11 @@
   "author": {
     "name": "laabs",
     "email": ""
+  },
+  "dependencies": {
+    "filelog": "~0.1.4",
+    "tedious": "~0.1.5",
+    "generic-pool": "~2.0.4",
+    "nconf": "~0.6.9"
   }
 }

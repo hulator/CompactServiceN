@@ -13,7 +13,7 @@
         speed: 0.0,
         direction: 0,
         gpsDate: new Date(),
-        receivedDate: new Date()
+        receivedDate: new Date(),
         
         encode: function(data){
             this.unitID = data.readInt32LE(5);

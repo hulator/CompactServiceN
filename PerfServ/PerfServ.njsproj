@@ -39,9 +39,15 @@
   <ItemGroup>
     <Compile Include="ack.js" />
     <Compile Include="app.js" />
+    <Compile Include="configs\connectionConfig.json" />
+    <Compile Include="DbConnection.js" />
     <Compile Include="PositionMessage.js" />
+    <Content Include="configs\poolConfig.json" />
     <Content Include="package.json" />
     <Content Include="README.md" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="configs\" />
   </ItemGroup>
   <Import Project="$(VSToolsPath)\Node.js Tools\Microsoft.NodejsTools.targets" />
   <ProjectExtensions>

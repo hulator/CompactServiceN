@@ -1,0 +1,6 @@
+﻿{
+  "name": "tediousPool",
+  "max": 100,
+  "min": 2,
+  "idleTimeoutMillis": 30000
+}
